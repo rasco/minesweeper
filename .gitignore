@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log.*
+public/index.html
+public/*.js
+public/*.css
+public/*.woff
+public/*.woff2
+public/*.eot
+public/*.svg
+public/*.ttf
