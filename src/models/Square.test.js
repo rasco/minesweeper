@@ -17,12 +17,12 @@ describe('Square model', () => {
 
         // the middle square should have 8 valid adjacent squares
         square = minefield.getSquare(1,1)
-        adjacentSquares = square.getUncoveredAdjacentSquares()
+        adjacentSquares = square.getUnclearedAdjacentSquares()
         expect(adjacentSquares).toHaveLength(8)
 
         // the square at the top left should have only 3 adjacent squares
         square = minefield.getSquare(0,0)
-        adjacentSquares = square.getUncoveredAdjacentSquares()
+        adjacentSquares = square.getUnclearedAdjacentSquares()
         expect(adjacentSquares).toHaveLength(3)
     })
 
@@ -41,17 +41,17 @@ describe('Square model', () => {
         square = minefield.getSquare(1,1)
         square.dig()
 
-        expect(square.isUncovered()).toBe(true)
+        expect(square.isUncleared()).toBe(true)
         expect(square.getAdjacentMineCount()).toBe(3)
         
         square = minefield.getSquare(0,1)
         square.dig()
 
-        expect(square.isUncovered()).toBe(true)
+        expect(square.isUncleared()).toBe(true)
         expect(square.getAdjacentMineCount()).toBe(2)
     })
 
-    it('digging a square without adjacent mines uncovers all adjacent squares', () => {
+    it('digging a square without adjacent mines clears all adjacent squares', () => {
         // we construct a 3x3 minefield
         var minefield = MinefieldFactory(Square)(10,10)
 
@@ -65,19 +65,19 @@ describe('Square model', () => {
         square = minefield.getSquare(9,9)
         square.dig()
 
-        expect(square.isUncovered()).toBe(true)
+        expect(square.isUncleared()).toBe(true)
         expect(square.getAdjacentMineCount()).toBe(0)
 
-        // Count all uncovered fields
-        let field = minefield.getState()
-        let uncoveredFields = 0
+        // Count all uncleared fields
+        let field = minefield.getField()
+        let unclearedFields = 0
         field.forEach((row) => {
             row.forEach((square) => {
-                uncoveredFields += square.isUncovered() ? 1 : 0
+                unclearedFields += square.isUncleared() ? 1 : 0
             })
         })
 
-        // We should end up with 10*10-1 (99) uncovered fields (last one is the mine)
-        expect(uncoveredFields).toBe(99)
+        // We should end up with 10*10-1 (99) uncleared fields (last one is the mine)
+        expect(unclearedFields).toBe(99)
     })
 })

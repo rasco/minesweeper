@@ -1,4 +1,4 @@
-export const SQUARE_DISPLAY_UNCOVERED = Symbol('UNCOVERED')
+export const SQUARE_DISPLAY_UNCLEARED = Symbol('UNCLEARED')
 export const SQUARE_DISPLAY_MINE = Symbol('MINE')
 export const SQUARE_DISPLAY_NUMBER = Symbol('NUMBER')
 export const SQUARE_DISPLAY_EMPTY = Symbol('EMPTY')
@@ -10,8 +10,8 @@ export class Square {
         this.minefield = minefield
 
         this.mine = false
-        this.uncovered = false
-        this.display = SQUARE_DISPLAY_UNCOVERED
+        this.uncleared = false
+        this.display = SQUARE_DISPLAY_UNCLEARED
         this.adjacentMineCount = null
     }
 
@@ -19,8 +19,8 @@ export class Square {
         return this.mine
     }
 
-    isUncovered() {
-        return this.uncovered
+    isUncleared() {
+        return this.uncleared
     }
 
     getAdjacentMineCount() {
@@ -35,14 +35,25 @@ export class Square {
         this.mine = true
     }
 
+    getState() {
+        return {
+            x: this.x,
+            y: this.y,
+            mine: this.mine,
+            uncleared: this.uncleared,
+            display: this.display,
+            adjacentMineCount: this.adjacentMineCount
+        }
+    }
+
     dig() {
-        if ( this.uncovered ) {
-            // refuse to dig already cleared squares
+        if ( this.uncleared ) {
+            // refuse to dig already uncleared squares
             return
         }
 
-        this.uncovered = true
-        this.minefield.incrementSquaresUncovered()
+        this.uncleared = true
+        this.minefield.incrementSquaresUncleared()
 
         if ( this.hasMine() ) {
             // We hit a mine => game over
@@ -50,7 +61,7 @@ export class Square {
             return
         }
 
-        const adjacentSquares = this.getUncoveredAdjacentSquares()
+        const adjacentSquares = this.getUnclearedAdjacentSquares()
         const adjacentMines = adjacentSquares.filter((square) => square.hasMine())
 
         this.adjacentMineCount = adjacentMines.length
@@ -69,7 +80,7 @@ export class Square {
         }
     }
 
-    getUncoveredAdjacentSquares() {
+    getUnclearedAdjacentSquares() {
         let squares = []
         for (let x = this.x-1; x <= this.x+1; x++) {
             for (let y = this.y-1; y <= this.y+1; y++) {
@@ -78,7 +89,7 @@ export class Square {
                 squares.push(square)
             }
         }
-        // filter out null values and uncovered squares
-        return squares.filter((square) => square && !square.uncovered)
+        // filter out null values and uncleared squares
+        return squares.filter((square) => square && !square.uncleared)
     }
 }

@@ -3,7 +3,11 @@ import { applyMiddleware, createStore } from 'redux';
 import { createLogger } from 'redux-logger'
 import { combineReducers } from 'redux';
 
-const reducer = () => {};
+import game from 'reducers/game'
+
+const reducer = combineReducers({
+    game
+});
 
 const middleware = [];
 if ( process.env.NODE_ENV != 'production' ) {

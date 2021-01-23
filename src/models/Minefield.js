@@ -8,27 +8,35 @@ export class Minefield {
         this.field = this.generateField(w, h)
 
         this.minesHaveBeenPlanted = false
-        this.squaresUncovered = 0
+        this.squaresUncleared = 0
     }
 
     getDefaultMineCount() {
-        return (this.width * this.height) / 2;
+        return (this.width * this.height) / 6;
     }
 
     getState() {
+        return this.field.map((row) => {
+            return row.map((square) => {
+                return square.getState()
+            })
+        })
+    }
+
+    getField() {
         return this.field
     }
 
-    incrementSquaresUncovered() {
-        this.squaresUncovered++
+    incrementSquaresUncleared() {
+        this.squaresUncleared++
     }
 
     getMineCount() {
         return this.mineCount
     }
 
-    getSquaresUncovered() {
-        return this.squaresUncovered
+    getSquaresUncleared() {
+        return this.squaresUncleared
     }
 
     getSquareCount() {
@@ -92,6 +100,14 @@ export class Minefield {
         let x = Math.floor(Math.random() * this.width)
         let y = Math.floor(Math.random() * this.height)
         return {x,y}
+    }
+
+    clearAll() {
+        this.field.forEach((row) => {
+            row.forEach((square) => {
+                square.dig()
+            })
+        })
     }
 }
 

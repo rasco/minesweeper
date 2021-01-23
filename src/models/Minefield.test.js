@@ -10,7 +10,7 @@ describe('Minefield model', () => {
 
     it('constructor should generate a minefield', () => {
         var minefield = MinefieldFactory(Square)(6,4) // width of 6, height of 4
-        const field = minefield.getState()
+        const field = minefield.getField()
         expect(field).toHaveLength(4) // count the rows
         field.forEach((row) => {
             expect(row).toHaveLength(6) // count the columns
@@ -19,7 +19,7 @@ describe('Minefield model', () => {
 
     it('newly generated minefield should have no mines', () => {
         var minefield = MinefieldFactory(Square)(6,4) // width of 6, height of 4
-        const field = minefield.getState()
+        const field = minefield.getField()
         field.forEach((row) => {
             row.forEach((square) => {
                 expect(square.hasMine()).toBe(false)
@@ -31,7 +31,7 @@ describe('Minefield model', () => {
         var minefield = MinefieldFactory(Square)(6,4) // width of 6, height of 4
         const mineCountThatShouldBe = minefield.getDefaultMineCount()
         minefield.dig(3,2)
-        const field = minefield.getState()
+        const field = minefield.getField()
         let mineCount = 0
         field.forEach((row) => {
             row.forEach((square) => {

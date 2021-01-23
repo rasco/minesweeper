@@ -17,17 +17,26 @@ export class Game {
 
         if ( square.hasMine() ) {
             this.state = GAME_STATE_LOSE
+            this.minefield.clearAll()
         }
 
-        if ( this.minefield.getSquaresUncovered() + this.minefield.getMineCount()
+        if ( this.minefield.getSquaresUncleared() + this.minefield.getMineCount()
             == this.minefield.getSquareCount() ) {
             this.state = GAME_STATE_WIN
+            this.minefield.clearAll()
         }
 
         return square
     }
 
     getState() {
-        return this.state
+        return {
+            state: this.state,
+            minefield: this.minefield.getState()
+        }
+    }
+
+    getMinefield() {
+        return this.minefield
     }
 }
