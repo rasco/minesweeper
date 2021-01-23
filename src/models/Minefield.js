@@ -1,16 +1,17 @@
-import {Square} from './Square'
-
 export class Minefield {
-    constructor(w, h) {
+    constructor(deps, w = 6, h = 4, mineCount = null) {
         this.width = w
         this.height = h
+        this.mineCount = mineCount !== null ? mineCount : this.getDefaultMineCount()
+        this.deps = deps
 
         this.field = this.generateField(w, h)
 
-        this.planted = false
+        this.minesHaveBeenPlanted = false
+        this.squaresUncovered = 0
     }
 
-    getInitialMineCount() {
+    getDefaultMineCount() {
         return (this.width * this.height) / 2;
     }
 
@@ -18,12 +19,28 @@ export class Minefield {
         return this.field
     }
 
+    incrementSquaresUncovered() {
+        this.squaresUncovered++
+    }
+
+    getMineCount() {
+        return this.mineCount
+    }
+
+    getSquaresUncovered() {
+        return this.squaresUncovered
+    }
+
+    getSquareCount() {
+        return this.width * this.height
+    }
+
     generateField(width, height) {
         let field = []
         for (var h = 0; h < height; h++) {
             let row = []
             for (var w = 0; w < width; w++) {
-                row.push(new Square(w,h))
+                row.push(new this.deps.Square(w,h, this))
             }
             field.push(row)
         }
@@ -31,28 +48,34 @@ export class Minefield {
     }
 
     dig(x,y) {
-        if ( this.planted == false ) {
-            this.plantMines({x,y}, this.getInitialMineCount())
+        if ( this.minesHaveBeenPlanted == false ) {
+            this.plantMines({x,y}, this.getMineCount())
         }
+        let square = this.getSquare(x,y)
+        square.dig()
+        return square
     }
 
     getSquare(x,y) {
+        if ( x < 0 || y < 0 || x >= this.width || y >= this.height )
+            return null;
         return this.field[y][x]
     }
 
-    plantMines(startPosition, mineCount) {
+    plantMines(startPosition, minesToPlant) {
         let minesPlanted = 0;
-        while(minesPlanted < mineCount) {
+        while(minesPlanted < minesToPlant) {
             let randomCoord = this.getRandomCoordinate()
             let {x,y} = randomCoord
-            let square = this.getSquare(x,y)
             if ( !this.isValidMineCoordinate(randomCoord, startPosition) ) {
                 continue;
             }
+            let square = this.getSquare(x,y)
             square.plantMine()
             minesPlanted++;
         }
-        this.planted = true
+        this.minesHaveBeenPlanted = true
+        this.mineCount = minesPlanted
     }
 
     isValidMineCoordinate(randomCoord, startPosition) {
@@ -70,4 +93,11 @@ export class Minefield {
         let y = Math.floor(Math.random() * this.height)
         return {x,y}
     }
+}
+
+export const MinefieldFactory = (Square) => {
+    return (...args) => {
+        return new Minefield({Square}, ...args)
+    }
+
 }
