@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "webpack --progress --watch --mode development"
+    "start:dev": "webpack --progress --watch --mode development",
+    "test:watch": "jest --watch --watchman"
   },
   "author": "",
   "license": "ISC",
@@ -36,5 +37,15 @@
     "redux-actions": "^2.6.5",
     "redux-logger": "^3.0.6",
     "tachyons-sass": "^4.9.5"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js",
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    }
   }
 }
