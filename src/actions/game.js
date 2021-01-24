@@ -1,15 +1,22 @@
-export const GAME_START = 'GAME_START'
-export const GAME_CLICK_SQUARE = 'GAME_CLICK_SQUARE'
+import GameFactory from 'models/GameFactory'
+
+export const GAME_CHANGE_STATE = 'GAME_CHANGE_STATE'
+
+let game = null
 
 export function startGame() {
-    return {
-        type: GAME_START,
-    };
+    game = GameFactory()
+    return changeGameState(game)
 }
 
 export function clickSquare(x,y) {
+    game.clickField(x, y)
+    return changeGameState(game)
+}
+
+function changeGameState(game) {
     return {
-        type: GAME_CLICK_SQUARE,
-        data: {x,y}
+        type: GAME_CHANGE_STATE,
+        data: {gameState: game.getState()}
     };
 }

@@ -1,8 +1,8 @@
 export class Minefield {
-    constructor(deps, w = 6, h = 4, mineCount = null) {
+    constructor(deps, w = 10, h = 10, mineCount = undefined) {
         this.width = w
         this.height = h
-        this.mineCount = mineCount !== null ? mineCount : this.getDefaultMineCount()
+        this.mineCount = mineCount !== undefined ? mineCount : this.getDefaultMineCount()
         this.deps = deps
 
         this.field = this.generateField(w, h)

@@ -1,38 +1,14 @@
-import { 
-    Game
-} from 'models/Game'
-
-import { 
-    MinefieldFactory
-} from 'models/Minefield'
-
-import { 
-    Square
-} from 'models/Square'
-
 import { handleActions } from 'redux-actions';
 
 import {
-    GAME_START,
-    GAME_CLICK_SQUARE
+    GAME_CHANGE_STATE,
 } from 'actions/game';
 
-const defaultState = { game: null }
-
-const modelToStateMapper = {
-    startGame: () => {
-        var game = new Game(MinefieldFactory(Square)(10, 10))
-        return {game, flatState:game.getState()}
-    },
-    clickSquare: (state, action) => {
-        var {game} = state
-        var {x,y} = action.data
-        game.clickField(x, y)
-        return {game, flatState:game.getState()}
-    },
-}
+const defaultState = { state: null, minefield: [] }
 
 export default handleActions({
-    [GAME_START]: modelToStateMapper.startGame,
-    [GAME_CLICK_SQUARE]: modelToStateMapper.clickSquare,
+    [GAME_CHANGE_STATE]: (state, action) => ({
+        state: action.data.gameState.state,
+        minefield: action.data.gameState.minefield
+    }),
 }, defaultState);

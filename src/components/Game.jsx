@@ -43,10 +43,10 @@ class Game extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const gameState = state.game.flatState
+  const gameState = state.game.state
 
   return {
-    gameState: gameState.state
+    gameState: gameState
   }
 };
 

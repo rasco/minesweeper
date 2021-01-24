@@ -28,10 +28,10 @@ class Minefield extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const gameState = state.game.flatState
+  const minefield = state.game.minefield
 
   return {
-    minefield: gameState.minefield
+    minefield: minefield
   }
 };
 
