@@ -22,13 +22,13 @@ const defaultState = { game: null }
 const modelToStateMapper = {
     startGame: () => {
         var game = new Game(MinefieldFactory(Square)(10, 10))
-        return {game, state:game.getState()}
+        return {game, flatState:game.getState()}
     },
     clickSquare: (state, action) => {
         var {game} = state
         var {x,y} = action.data
         game.clickField(x, y)
-        return {game, state:game.getState()}
+        return {game, flatState:game.getState()}
     },
 }
 
