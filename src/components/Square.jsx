@@ -6,6 +6,8 @@ import { SQUARE_DISPLAY_UNCLEARED,
     SQUARE_DISPLAY_NUMBER, 
     SQUARE_DISPLAY_EMPTY } from 'models/Square'
 
+// render a square on the minefield
+// todo: each square type could have its own little component
 export class Square extends React.Component {
     render() {
         let square = this.props.square

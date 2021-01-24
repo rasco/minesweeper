@@ -32,7 +32,8 @@ export class Game {
     getState() {
         return {
             state: this.state,
-            minefield: this.minefield.getState()
+            minefield: this.minefield.getState(),
+            mineCount: this.minefield.getMineCount()
         }
     }
 

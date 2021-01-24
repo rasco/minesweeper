@@ -1,4 +1,5 @@
 import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger'
 import { combineReducers } from 'redux';
 
@@ -8,7 +9,7 @@ const reducer = combineReducers({
     game
 });
 
-const middleware = [];
+const middleware = [thunk];
 if ( process.env.NODE_ENV != 'production' ) {
     middleware.push(createLogger());
 }

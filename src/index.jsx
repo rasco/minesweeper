@@ -8,7 +8,6 @@ import {startGame} from 'actions/game'
 import App from 'components/App';
 
 function start() {
-    store.dispatch(startGame())
     ReactDOM.render((
         <Provider store={store}>
             <App></App>
