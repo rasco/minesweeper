@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import {startGame} from 'actions/game'
 
-import App from 'views/App';
+import App from 'components/App';
 
 function start() {
     store.dispatch(startGame())

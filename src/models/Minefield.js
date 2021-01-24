@@ -12,7 +12,7 @@ export class Minefield {
     }
 
     getDefaultMineCount() {
-        return (this.width * this.height) / 12;
+        return (this.width * this.height) / 6;
     }
 
     getState() {

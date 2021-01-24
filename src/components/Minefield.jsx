@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import {clickSquare} from 'actions/game'
 
-import {Square} from 'views/Square'
+import {Square} from 'components/Square'
 
 class Minefield extends React.Component {
     render() {
@@ -28,7 +28,7 @@ class Minefield extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const gameState = state.game.state
+  const gameState = state.game.flatState
 
   return {
     minefield: gameState.minefield

@@ -14,7 +14,7 @@ export class Square extends React.Component {
         let classes = null
         switch(display) {
             case SQUARE_DISPLAY_UNCLEARED:
-                classes = 'bg-silver hover-bg-light-blue'
+                classes = 'bg-silver hover-bg-moon-gray pointer'
                 break;
             case SQUARE_DISPLAY_NUMBER:
                 content = square.adjacentMineCount
@@ -22,7 +22,7 @@ export class Square extends React.Component {
                 break;
             case SQUARE_DISPLAY_EMPTY:
                 content = '';
-                classes = 'bg-light-silver'
+                classes = 'bg-moon-gray'
                 break;
             case SQUARE_DISPLAY_MINE:
                 content = <i className="fa fa-bomb"></i>;
@@ -31,7 +31,7 @@ export class Square extends React.Component {
         }
         return <div onClick={this.props.action}
             className={classnames(
-                "pa1 pointer",
+                "pa1",
                 classes ? classes : 'bg-silver'
             )}
             style={{

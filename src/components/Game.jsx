@@ -12,7 +12,7 @@ import {
     GAME_STATE_WIN 
 } from 'models/Game'
 
-import Minefield from 'views/Minefield'
+import Minefield from 'components/Minefield'
 
 class Game extends React.Component {
     render() {
@@ -29,9 +29,9 @@ class Game extends React.Component {
         }
 
         return <div className="relative bg-light-gray ba b--silver">
-            <div className="flex ba b--moon-gray">
+            <div className="flex ba b--moon-gray bw1">
                 <div className="flex-auto"></div>
-                <div className="pa1 f1 yellow bg-white hover-blue pointer" 
+                <div className="pa1 f1 yellow bg-white hover-blue pointer bl br b--light-silver" 
                     onClick={() => this.props.startGame()}>
                     {smileyface}
                 </div>
@@ -43,7 +43,7 @@ class Game extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const gameState = state.game.state
+  const gameState = state.game.flatState
 
   return {
     gameState: gameState.state
