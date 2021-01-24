@@ -4,11 +4,12 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "webpack --progress --watch --mode development",
-    "test:watch": "jest --watch --watchman"
+    "test:watch": "jest --watch --watchman",
+    "test": "jest",
+    "build": "webpack --progress --mode production"
   },
-  "author": "",
+  "author": "Erasmus",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.12.10",
