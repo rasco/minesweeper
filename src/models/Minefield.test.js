@@ -27,10 +27,10 @@ describe('Minefield model', () => {
         })
     })
 
-    it('after digging once, there should be an appropriate number of mines', () => {
+    it('after planting mines, there should be the correct number of mines', () => {
         var minefield = MinefieldFactory(Square)(6,4) // width of 6, height of 4
-        const mineCountThatShouldBe = minefield.getDefaultMineCount()
-        minefield.dig(3,2)
+        const expectedMineCount = minefield.getMineCount()
+        minefield.plantMines({x:3,y:2}, minefield.getMineCount())
         const field = minefield.getField()
         let mineCount = 0
         field.forEach((row) => {
@@ -38,7 +38,7 @@ describe('Minefield model', () => {
                 mineCount += square.hasMine() ? 1 : 0
             })
         })
-        expect(mineCount).toBe(mineCountThatShouldBe)
+        expect(mineCount).toBe(expectedMineCount)
     })
 
     it('the starting square should never have a mine', () => {

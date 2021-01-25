@@ -49,7 +49,7 @@ describe('Game model', () => {
         var game = new Game(minefield)
         game.clickField(2,2)
         expect(game.getState().state).toBe(GAME_STATE_WIN)
-
+        
         // test two
         // plant three mines in the middle row
         minefield = MinefieldFactory(Square)(3,3,3)

@@ -11,6 +11,7 @@ export class Game {
 
     clickField(x,y) {
         if ( this.state === GAME_STATE_START ) {
+            this.minefield.plantMines({x,y}, this.minefield.getMineCount())
             this.state = GAME_STATE_RUNNING
         }
         const square = this.minefield.dig(x,y)

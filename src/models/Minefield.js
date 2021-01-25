@@ -56,9 +56,6 @@ export class Minefield {
     }
 
     dig(x,y) {
-        if ( this.minesHaveBeenPlanted == false ) {
-            this.plantMines({x,y}, this.getMineCount())
-        }
         let square = this.getSquare(x,y)
         square.dig()
         return square
@@ -71,6 +68,7 @@ export class Minefield {
     }
 
     plantMines(startPosition, minesToPlant) {
+        if ( this.minesHaveBeenPlanted ) return
         let minesPlanted = 0;
         while(minesPlanted < minesToPlant) {
             let randomCoord = this.getRandomCoordinate()
