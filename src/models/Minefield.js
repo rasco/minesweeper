@@ -8,7 +8,7 @@ export class Minefield {
         this.field = this.generateField(w, h)
 
         this.minesHaveBeenPlanted = false
-        this.squaresUncleared = 0
+        this.squaresCleared = 0
     }
 
     getDefaultMineCount() {
@@ -27,16 +27,16 @@ export class Minefield {
         return this.field
     }
 
-    incrementSquaresUncleared() {
-        this.squaresUncleared++
+    incrementSquaresCleared() {
+        this.squaresCleared++
     }
 
     getMineCount() {
         return this.mineCount
     }
 
-    getSquaresUncleared() {
-        return this.squaresUncleared
+    getSquaresCleared() {
+        return this.squaresCleared
     }
 
     getSquareCount() {

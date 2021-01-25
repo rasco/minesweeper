@@ -1,4 +1,4 @@
-export const SQUARE_DISPLAY_UNCLEARED = Symbol('UNCLEARED')
+export const SQUARE_DISPLAY_CLEARED = Symbol('CLEARED')
 export const SQUARE_DISPLAY_MINE = Symbol('MINE')
 export const SQUARE_DISPLAY_NUMBER = Symbol('NUMBER')
 export const SQUARE_DISPLAY_EMPTY = Symbol('EMPTY')
@@ -10,8 +10,8 @@ export class Square {
         this.minefield = minefield
 
         this.mine = false
-        this.uncleared = false
-        this.display = SQUARE_DISPLAY_UNCLEARED
+        this.cleared = false
+        this.display = SQUARE_DISPLAY_CLEARED
         this.adjacentMineCount = null
     }
 
@@ -19,8 +19,8 @@ export class Square {
         return this.mine
     }
 
-    isUncleared() {
-        return this.uncleared
+    isCleared() {
+        return this.cleared
     }
 
     getAdjacentMineCount() {
@@ -40,20 +40,20 @@ export class Square {
             x: this.x,
             y: this.y,
             mine: this.mine,
-            uncleared: this.uncleared,
+            cleared: this.cleared,
             display: this.display,
             adjacentMineCount: this.adjacentMineCount
         }
     }
 
     dig() {
-        if ( this.uncleared ) {
-            // refuse to dig already uncleared squares
+        if ( this.cleared ) {
+            // refuse to dig already cleared squares
             return
         }
 
-        this.uncleared = true
-        this.minefield.incrementSquaresUncleared()
+        this.cleared = true
+        this.minefield.incrementSquaresCleared()
 
         if ( this.hasMine() ) {
             // We hit a mine => game over
@@ -61,7 +61,7 @@ export class Square {
             return
         }
 
-        const adjacentSquares = this.getUnclearedAdjacentSquares()
+        const adjacentSquares = this.getClearedAdjacentSquares()
         const adjacentMines = adjacentSquares.filter((square) => square.hasMine())
 
         this.adjacentMineCount = adjacentMines.length
@@ -80,7 +80,7 @@ export class Square {
         }
     }
 
-    getUnclearedAdjacentSquares() {
+    getClearedAdjacentSquares() {
         let squares = []
         for (let x = this.x-1; x <= this.x+1; x++) {
             for (let y = this.y-1; y <= this.y+1; y++) {
@@ -89,7 +89,7 @@ export class Square {
                 squares.push(square)
             }
         }
-        // filter out null values and uncleared squares
-        return squares.filter((square) => square && !square.uncleared)
+        // filter out null values and cleared squares
+        return squares.filter((square) => square && !square.cleared)
     }
 }

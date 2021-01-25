@@ -20,7 +20,7 @@ export class Game {
             this.minefield.clearAll()
         }
 
-        if ( this.minefield.getSquaresUncleared() + this.minefield.getMineCount()
+        if ( this.minefield.getSquaresCleared() + this.minefield.getMineCount()
             == this.minefield.getSquareCount() ) {
             this.state = GAME_STATE_WIN
             this.minefield.clearAll()
