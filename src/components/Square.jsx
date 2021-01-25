@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames'
 
-import { SQUARE_DISPLAY_cleared, 
+import { SQUARE_DISPLAY_CLEARED, 
     SQUARE_DISPLAY_MINE, 
     SQUARE_DISPLAY_NUMBER, 
     SQUARE_DISPLAY_EMPTY } from 'models/Square'
@@ -15,7 +15,7 @@ export class Square extends React.Component {
         let content = ''
         let classes = null
         switch(display) {
-            case SQUARE_DISPLAY_cleared:
+            case SQUARE_DISPLAY_CLEARED:
                 classes = 'bg-silver hover-bg-moon-gray pointer'
                 break;
             case SQUARE_DISPLAY_NUMBER:
