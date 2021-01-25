@@ -1,14 +1,9 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import {clickSquare} from 'actions/game'
-
 import {Square} from 'components/Square'
 
 // render the minefield
-class Minefield extends React.Component {
+export class Minefield extends React.Component {
     render() {
         let rowCounter = 0
 
@@ -32,16 +27,3 @@ class Minefield extends React.Component {
     }
 }
 
-// we just need the minefield state
-const mapStateToProps = state => {
-  const minefield = state.game.gameState.minefield
-
-  return {
-    minefield
-  }
-};
-
-// when a square is clicked, the clickSquare action is called
-export default connect(mapStateToProps, dispatch => ({
-    clickSquare: bindActionCreators(clickSquare, dispatch)
-}))(Minefield)

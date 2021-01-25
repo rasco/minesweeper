@@ -1,18 +1,13 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import {startGame, changeDifficulty} from 'actions/game'
-
 import { 
     GAME_STATE_LOSE,
     GAME_STATE_WIN 
 } from 'models/Game'
 
-import Minefield from 'components/Minefield'
+import MinefieldContainer from 'components/MinefieldContainer'
 
-class Game extends React.Component {
+export class Game extends React.Component {
     componentDidMount() {
         this.props.startGame()
     }
@@ -55,7 +50,7 @@ class Game extends React.Component {
             </div>
 
             {/* The actual playing field */}
-            <Minefield />
+            <MinefieldContainer />
         </div>
     }
 }
@@ -72,19 +67,3 @@ const Smileyface = ({gameState}) => {
     }
 }
 
-const mapStateToProps = state => {
-  const gameState = state.game.gameState.state
-  const mineCount = state.game.gameState.mineCount
-  const difficulty = state.game.difficulty
-
-  return {
-    gameState, // this is the game's internal state (win/loss etc.)
-    mineCount, // how many mines there are (displayed in the header)
-    difficulty // current difficulty setting
-  }
-};
-
-export default connect(mapStateToProps, dispatch => ({
-    startGame: bindActionCreators(startGame, dispatch),
-    changeDifficulty: bindActionCreators(changeDifficulty, dispatch),
-}))(Game)
