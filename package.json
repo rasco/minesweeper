@@ -25,7 +25,6 @@
     "jsx-loader": "^0.13.2",
     "mini-css-extract-plugin": "^1.3.4",
     "node-sass": "^5.0.0",
-    "redux-thunk": "^2.3.0",
     "sass-loader": "^10.1.1",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
@@ -38,10 +37,7 @@
     "font-awesome": "^4.7.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-redux": "^7.2.2",
-    "redux": "^4.0.5",
-    "redux-actions": "^2.6.5",
-    "redux-logger": "^3.0.6",
+    "rxjs": "^6.6.3",
     "tachyons-sass": "^4.9.5"
   },
   "jest": {

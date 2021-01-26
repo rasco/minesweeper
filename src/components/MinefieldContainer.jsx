@@ -1,20 +1,24 @@
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { useState, useLayoutEffect } from 'react';
 
-import {clickSquare} from 'actions/game'
+import store from 'store'
 
 import {Minefield} from 'components/Minefield'
 
-// we just need the minefield state
-const mapStateToProps = state => {
-  const minefield = state.game.gameState.minefield
+export default function () {
 
-  return {
-    minefield
-  }
-};
+    const [gameState, setGameState] = useState(store.initialState)
 
-// when a square is clicked, the clickSquare action is called
-export default connect(mapStateToProps, dispatch => ({
-    clickSquare: bindActionCreators(clickSquare, dispatch)
-}))(Minefield)
+    useLayoutEffect( () => {
+        store.subscribe(setGameState);
+        store.start()
+    },[]);
+
+    const onClickSquare = (x, y) => {
+        store.clickSquare(x, y)
+    }
+
+    return (
+        <Minefield minefield={gameState.game.minefield} 
+            clickSquare={onClickSquare} />
+    )
+}

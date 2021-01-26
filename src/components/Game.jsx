@@ -8,10 +8,6 @@ import {
 import MinefieldContainer from 'components/MinefieldContainer'
 
 export class Game extends React.Component {
-    componentDidMount() {
-        this.props.startGame()
-    }
-
     changeDifficulty(event) {
         // get the difficulty setting from the select box and call the action creator.
         let newDifficulty = event.target.value
@@ -19,6 +15,7 @@ export class Game extends React.Component {
     }
 
     render() {
+        console.log('im being updated', this.props)
         return <div className="relative bg-light-gray ba b--silver">
 
             {/* Header */}

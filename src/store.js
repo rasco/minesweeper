@@ -1,19 +1,49 @@
-import { applyMiddleware, createStore } from 'redux';
-import thunk from 'redux-thunk';
-import { createLogger } from 'redux-logger'
-import { combineReducers } from 'redux';
+import { Subject } from 'rxjs';
 
-import game from 'reducers/game'
+import GameFactory, {getDifficultySettings} from 'models/GameFactory'
 
-const reducer = combineReducers({
-    game
-});
+const subject = new Subject();
+const initialState = {
+    game: {
+        state: null, 
+        minefield: [],
+        mineCount: 0
+    }, 
+    difficulty: 'beginner'
+};
 
-const middleware = [thunk];
-if ( process.env.NODE_ENV != 'production' ) {
-    middleware.push(createLogger());
-}
+let game = null
+let state = initialState;
 
-const store = createStore(reducer, applyMiddleware(...middleware));
+export const store = {
+    start: () => {
+        let difficulty = state.difficulty
+        let difficultySettings = getDifficultySettings(difficulty)
+        game = GameFactory(difficultySettings.w, difficultySettings.h, difficultySettings.mines)
+        state = {
+            ...state,
+            game: game.getState()
+        }
+        subject.next(state)
+    },
+    changeDifficulty: (difficulty) => {
+        state = {
+            ...state,
+            difficulty
+        }
+        subject.next(state)
+        store.start()
+    },
+    clickSquare: (x, y) => {
+        game.clickField(x, y)
+        state = {
+            ...state,
+            game: game.getState()
+        }
+        subject.next(state)
+    },
+    subscribe: setState => subject.subscribe(setState),
+    initialState
+};
 
 export default store;

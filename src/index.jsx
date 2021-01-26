@@ -1,17 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-
-import store from './store';
-import {startGame} from 'actions/game'
 
 import App from 'components/App';
 
 function start() {
     ReactDOM.render((
-        <Provider store={store}>
-            <App></App>
-        </Provider>
+        <App></App>
     ), document.getElementById('app'));
 }
 
